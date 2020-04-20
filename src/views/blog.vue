@@ -18,16 +18,9 @@
 
         <v-section>
             <v-container fluid>
-                <v-layout row wrap>
-                    <v-flex md12 xs12 sm12>
-                        <v-layout row wrap>
-                            <v-flex md4 sm12 xs12>
-                                <post-card/>
-                            </v-flex>
-                            <v-flex md4 sm12 xs12>
-                                <post-card/>
-                            </v-flex>
-                        </v-layout>
+                <v-layout wrap row >
+                    <v-flex md4 xs12>
+                        <post-card/>
                     </v-flex>
                 </v-layout>
             </v-container>

@@ -12,28 +12,11 @@ Vue.use(firestorePlugin)
 const messaging = firebase.messaging();
 Vue.prototype.$messaging = messaging;
 
-let ask = async function () {
-    const messaging = firebase.messaging();
-    await messaging.requestPermission();
-    const token = await messaging.getToken();
-    console.log('User Token Is :', token);
-    let sub = firebase.functions().httpsCallable('subscribe');
-    let res = await sub(token);
-    console.log(res);
-};
-
 messaging.onTokenRefresh(async (refresh)=>{
-    console.log(refresh);
+    console.log("Token Refreshed");
     let sub = firebase.functions().httpsCallable('subscribe');
     let res = await sub(refresh);
-    console.log(res);
+    console.log("new Token",res);
 });
-
-messaging.onMessage((payload) => {
-    console.log('Message received. ', payload);
-});
-
-
-ask();
 
 export let db = firebase.firestore();
