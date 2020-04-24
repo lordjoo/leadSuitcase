@@ -2,7 +2,7 @@
     <section class="blog-page">
 
         <v-section style="background-color: #F9F9F9">
-            <v-container fluid>
+            <v-container v-if="announcements.length > 0" fluid>
                 <v-layout wrap row >
                     <v-flex md12 xs12 sm12>
                         <p :style="{fontSize:'200%',color:$config.style.color}" class="google-font">
@@ -19,8 +19,8 @@
         <v-section>
             <v-container fluid>
                 <v-layout wrap row >
-                    <v-flex md4 xs12>
-                        <post-card/>
+                    <v-flex v-for="post in posts" :key="post.name" md4 xs12>
+                        <post-card :post='post' />
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -39,6 +39,14 @@
     import Announcement from "../components/blog/announcement";
     export default {
         name: "blog",
+        computed:{
+            posts:function(){
+                return this.$store.state.posts;
+            },
+            announcements:function(){
+                return this.$store.state.announcements;
+            },
+        },
         components: {PostCard, AppFooter, VSection,Announcement}
     }
 </script>
