@@ -19,9 +19,9 @@
                 <v-btn class="no-shadow" to="/blog" color="#fff"  >
                     <span class="fa fa-blog mr-1"></span> Blog
                 </v-btn>
-                <v-btn text to="/team">
+                <!-- <v-btn text to="/team">
                     <span class="fa fa-users mr-1"></span> Our Team
-                </v-btn>
+                </v-btn> -->
 
             </div>
         </v-app-bar>
@@ -41,8 +41,6 @@
 
 <style scoped>
     @media only screen and (max-width: 600px) {
-        .hide-onsm {
-            //display: none !important;
-        }
+       
     }
 </style>

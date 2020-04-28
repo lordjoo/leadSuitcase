@@ -7,6 +7,8 @@ import 'firebase/functions'
 import { firebaseConfig } from './firebase-config'
 import { firestorePlugin } from 'vuefire'
 firebase.initializeApp(firebaseConfig);
+firebase.functions().useFunctionsEmulator('http://localhost:5001')
+//firebase.firestore().settings({host: "localhost:8080", ssl: false});
 
 Vue.use(firestorePlugin)
 const messaging = firebase.messaging();

@@ -1,29 +1,29 @@
 <template>
     <v-card class="mr-2 ml-2 mb-2">
-        <v-img height="200px" src="https://firebase.google.com/images/social.png"></v-img>
+        <v-img height="200px" :src="event.photo"></v-img>
         <v-card-title>
             <div class="google-font">
-                <p>Firebase Overview</p>
+                <p>{{ event.name }}</p>
             </div>
         </v-card-title>
         <v-card-subtitle>
             <p class="mb-0">
                 <span class="far fa-clock mr-1"></span>
-                12:00PM
+                {{ event.time }}
             </p>
             <p class="mb-0">
                 <span class="fa fa-calendar-day mr-1"></span>
-                26, Feb, 2020
+                {{ moment(event.date.toDate()).format("DD, MMMM, YYYY") }}
             </p>
-            <p class="mb-0">
+            <p v-if="event.instructor" class="mb-0">
                 <span class="fa fa-chalkboard-teacher mr-1"></span>
-                Eng, John Wick
+                {{ event.instructor }}
             </p>
 
         </v-card-subtitle>
         <v-card-actions>
             <v-spacer />
-            <v-btn text :color="$config.style.color">
+            <v-btn :href="event.link" target="_blank" text :color="$config.style.color">
                 Read more
             </v-btn>
         </v-card-actions>
@@ -31,8 +31,18 @@
 </template>
 
 <script>
+    import moment from 'moment'
+
     export default {
-        name: "eventCard"
+        name: "eventCard",
+        props:{
+            event:{
+                required:true
+            }
+        },
+        methods:{
+            moment: (date) => moment(date)
+        }
     }
 </script>
 

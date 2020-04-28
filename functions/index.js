@@ -1,34 +1,51 @@
 const functions = require('firebase-functions');
-const admin = require("firebase-admin");
+const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
-
+const notify = require("./notify").notifyFromDB;
+const {Mailer,Auth} = require("./app/mailer");
 
 exports.subscribe = functions.https.onCall(async data => {
    return await admin.messaging().subscribeToTopic(data,'news')
 });
 
-exports.dbNotify = functions.firestore.document('notifications').onCreate(snapshot => {
-   console.log('notification event listener fired');
-   console.log(snapshot);
-   return 'job started';
+exports.notify = notify;
+
+exports.mailerCheck = functions.https.onCall(_=>{
+   return new Mailer().checkConfig();
 });
 
-exports.notifyUsers = functions.https.onCall(async ({title,body,link,icon}) => {
-   let msg = {
-      notification:{
-         title:title,
-         body:body,
-         icon:icon,
-         sound:"default",
-         priority:"high",
-         click_action:link,
-         badge:"./img/badge.png"
-      },
-      data:{
-         link:link
-      }
+exports.authoriseWithCode = functions.https.onCall(code =>{
+   try {
+      Auth.getToken(code);
+      return {msg:"done"};
+   } catch (e) {
+      return {msg:"failed"};
+   }
+});
+
+exports.mailerRuner = functions.firestore.document('mailer/{id}').onCreate(async snap => {
+   let camp = snap.data();
+   let log = [];
+   for (const mail of camp.to) {
+      new Mailer().send({subject:camp.email_subject,body:camp.email_body},mail.email).then(async _ =>{
+         log.push({email:mail.email,status:"Successful"});
+         await admin.firestore().collection('mailer').doc(snap.id).update({
+            "log":log
+         });
+      }).catch(async err =>{
+         log.push({email:mail.email,status:"Failed"});
+         await admin.firestore().collection('mailer').doc(snap.id).update({
+            "log":log
+         });
+         console.log(err)
+      });
+      await Mailer.sleep(5000);
+   }
+   await admin.firestore().collection('mailer').doc(snap.id).update({
+      "to":log,
+      "status":"Successful"
+   });
+   return {
+      msg:"done"
    };
-   admin.messaging().sendToTopic('news',msg,{priority:"high"}).then(res => {
-      console.log("msg send ", res);
-   }).catch(err => console.log("failed ith err",err));
 });

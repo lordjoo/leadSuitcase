@@ -18,6 +18,7 @@
                                 <th class="text-left">Event Name</th>
                                 <th class="text-left">Event Date</th>
                                 <th class="text-left">Event Description</th>
+                                <th class="text-left">Instructor</th>
                                 <th class="text-left">Event Link</th>
                                 <th class="text-left">Actions</th>
                             </tr>
@@ -25,8 +26,9 @@
                             <tbody>
                             <tr v-for="event in events" :key="event.name">
                                 <td>{{ event.name }}</td>
-                                <td>{{ event.date }}<br>{{ event.time }}</td>
+                                <td>{{ moment(event.date.toDate()).format("YYYY-MM-DD") }}<br>{{ event.time }}</td>
                                 <td>{{ event.desc }}</td>
+                                <td>{{ event.instructor }}</td>
                                 <td>
                                     <v-btn target="_blank" :href="event.link">Visit</v-btn>
                                 </td>
@@ -69,6 +71,12 @@
                                 <v-col cols="12" md="12">
                                     <v-text-field :rules="rules" v-model="event.link" color="#3498db"
                                                   label="Event Link"></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" md="12">
+                                    <v-text-field :rules="rules" v-model="event.instructor" color="#3498db"
+                                                  label="Instructor"></v-text-field>
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -133,6 +141,12 @@
                             </v-row>
                             <v-row>
                                 <v-col cols="12" md="12">
+                                    <v-text-field :rules="rules" v-model="editEvent.instructor" color="#3498db"
+                                                  label="Instructor"></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" md="12">
                                     <v-file-input id="editEventPhoto" color="#3498db"
                                                   label="Event Photo"></v-file-input>
                                 </v-col>
@@ -140,7 +154,7 @@
                             <v-row>
                                 <v-col cols="12" md="12">
                                     <p class="google-font">Event Date</p>
-                                    <input class="v-input" v-model="editEvent.date" type="date"/>
+                                    <input class="v-input" v-model="editDate" type="date"/>
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -190,7 +204,7 @@
                 loading:false,
                 dialog: false,
                 editDialog: false,
-
+                editDate:"",
                 event: {},
                 editEvent: {},
                 rules: [
@@ -217,6 +231,7 @@
                         this.addError = "Photo is required";
                         return;
                     }
+                    _eventObj.date = firebase.firestore.Timestamp.fromDate(new Date(this.event.date));
                     await firebase.firestore().collection('events').add(_eventObj);
                     this.event = {};
                     this.dialog = false;
@@ -231,6 +246,7 @@
 
 
             showEditDialog: function (event){
+                this.editDate = moment(event.date.toDate()).format("YYYY-MM-DD");
                 this.editDialog = true;
                 this.editEvent = event;
             },
@@ -243,6 +259,7 @@
                     const photoUploadTask = await photoRef.put(file);
                     _eventObj.photo = await photoUploadTask.ref.getDownloadURL();
                 }
+                _eventObj.date = firebase.firestore.Timestamp.fromDate(new Date(this.editDate));
                 await firebase.firestore().collection('events').doc(_eventObj.id).set(_eventObj);
                 this.editEvent = {};
                 this.editDialog = false;

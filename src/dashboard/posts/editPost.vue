@@ -5,8 +5,9 @@
                 <p style="font-size: 180%" class="google-font mb-3"><span class="fa fa-blog"></span>
                     {{ $route.meta.name }}</p>
             </v-layout>
+            {{ getTargetPost() }}
             <v-container>
-                <v-form v-model="valid">
+                <v-form v-if="newPost" v-model="valid">
                 <v-layout row wrap>
                     <v-flex md12>
                         <v-alert v-if="error" type="warning">{{ error }}</v-alert>
@@ -37,7 +38,7 @@
                     </v-flex>
 
                     <v-flex md12 xs12 sm12>
-                        <tinymce id="tmc" v-model="newPost.body"></tinymce>
+                        <tinymce id="tmc" :value="newPost.body" v-model="newPost.body"></tinymce>
                     </v-flex>
                 </v-layout>
                 <v-layout justify-end="true" class='mt-4'>
@@ -50,7 +51,7 @@
     </section>
 </template>
 <script>
-    import tinymce from 'vue-tinymce-editor'
+    import tinymce from '../components/tinyMce'
     import Loading from "../components/loading";
     import firebase from 'firebase/app'
     import $ from 'jquery'
@@ -60,9 +61,6 @@
     export default {
         name: "addPost",
         components: {Loading,tinymce},
-        mounted(){
-            this.getTargetPost();
-        },
         methods:{
             getTargetPost:async function(){
                this.newPost = this.$store.state.posts.find(this.getId)
@@ -82,7 +80,7 @@
                     }
                     _postObj.slug = convertToSlug(this.newPost.title);
                     _postObj.isAnnouncement = false;
-                    await firebase.firestore().collection('posts').add(_postObj);
+                    await firebase.firestore().collection('posts').doc(this.newPost.id).set(_postObj);
                     this.newPost = {};
                     this.loading = false;
                     await this.$router.push('/lead/blog');
@@ -97,7 +95,7 @@
                 loading:false,
                 newPost: {},
                 error:null,
-                data:'',
+                body:'1231321321',
                 rules: [
                     v => !!v || 'Field is required',
                 ],

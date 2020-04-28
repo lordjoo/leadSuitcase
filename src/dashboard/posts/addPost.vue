@@ -50,7 +50,7 @@
     </section>
 </template>
 <script>
-    import tinymce from 'vue-tinymce-editor'
+    import tinymce from '../components/tinyMce'
     import Loading from "../components/loading";
     import firebase from 'firebase/app'
     import $ from 'jquery'

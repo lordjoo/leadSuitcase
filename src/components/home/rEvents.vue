@@ -9,18 +9,42 @@
             </v-flex>
         </v-layout>
         <v-layout row fill-height="true" >
-            <v-flex sm12 md4 lg4>
-                <event-card></event-card>
+            <v-flex v-for="event in upComing" :key="event.name" sm12 md4 lg4>
+                <event-card :event="event"></event-card>
+            </v-flex>
+            <v-flex v-for="event in pastEvents" :key="event.name" sm12 md4 lg4>
+                <event-card :event="event"></event-card>
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 
 <script>
+    import firebase from 'firebase'
+    import 'firebase/firestore'
+    
     import EventCard from "../events/eventCard";
     export default {
         name: "rEvents",
-        components: {EventCard}
+        components: {EventCard},
+        computed:{
+            pastEvents: function () {
+                let check = function (event) {
+                    return (event.date < firebase.firestore.Timestamp.now());
+                };
+                let events = this.$store.state.events;
+                let coming = events.filter(check);
+                return (coming.length > 0) ? coming.slice(0,2) : false;  
+            },
+            upComing: function () {
+                let check = function (event) {
+                    return (event.date > firebase.firestore.Timestamp.now());
+                };
+                let events = this.$store.state.events;
+                let coming = events.filter(check);
+                return (coming.length > 0) ? coming : false;
+            }
+        }
     }
 </script>
 

@@ -15,7 +15,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase-admin": "^8.9.0",
-    "firebase-functions": "^3.3.0"
+    "firebase-functions": "^3.6.1",
+    "googleapis": "^49.0.0",
+    "js-base64": "^2.5.2",
+    "mimemessage": "^1.0.5"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.1.6"
