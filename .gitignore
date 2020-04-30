@@ -19,3 +19,8 @@ yarn-error.log*
 *.sln
 *.sw?
 .firebase
+src/firebase-config.js
+public/firebase-messaging-sw.js
+functions/client_id.json
+functions/token.json
+

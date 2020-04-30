@@ -1,37 +1,20 @@
-## Welcome to GitHub Pages
+## Welcome to LeadSuitCase
+LeadSuitCase is an VueJS OpenSource Project made to help GDG and DSC Leaders in their communities 
+leadSuitCase helps to keep the audience engaged all time by sending them push notifications to let them know about any thing you made 
+it also help the organisers in sending emails because it has a Mailer script to allow you send mail campaign via your gmail account 
 
-You can use the [editor on GitHub](https://github.com/lordjoo/leadSuitcase/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### it's fully rely on firebase so it's free to get started and deploy 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+***[Docs](https://leadsuitcase.ml/docs)***
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+## To Get Started 
+1. Clone the repo to your device 
 ```
+git clone https://github.com/lordjoo/leadSuitcase.git
+```
+2. then go [Firebase console](https://console.firebase.google.com/) to create a project 
+3. follow this video to know how to create a firebase project and get the project configurations data [Firebase tutorial](https://leadsuitcase.ml/firebase-video)
+4. then open your terminal and run 
+```npm run setup``` a browser window will open to complete your setup 
+5. click finish and deploy and vula your are now live 
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/lordjoo/leadSuitcase/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
