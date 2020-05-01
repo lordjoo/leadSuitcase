@@ -2,14 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { dashRoutes } from './dashRoutes'
-import { frontRoutes } from './frontRoutes'
+import {dashRoutes} from './dashRoutes'
+import {frontRoutes} from './frontRoutes'
 
 Vue.use(VueRouter);
 
 const routes = [
-        ...frontRoutes,
-        ...dashRoutes,
+    ...frontRoutes,
+    ...dashRoutes,
     // error pages routs
     {
         path: "/403",
@@ -26,22 +26,26 @@ const routes = [
 
 const router = new VueRouter({
     mode: 'history',
+    base: process.env.BASE_URL,
+    routes,
     scrollBehavior() {
         return {x: 0, y: 0}
     },
-    beforeEach(to, from, next) {
+});
+
+router.beforeEach((to, from, next) => {
         const user = firebase.auth().currentUser;
         const requiresAuth = to.matched.some(record => record.meta.auth);
         if (requiresAuth) {
             if (!user) {
                 next("/403");
+            } else {
+                next();
             }
         } else {
             next()
         }
-    },
-    base: process.env.BASE_URL,
-    routes
-})
+    }
+);
 
 export default router

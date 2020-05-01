@@ -9,9 +9,6 @@
                 <v-flex xs12 md4>
                     <info-card title="Posts" :number="posts.length" color="#d35400" icon="fa fa-blog"></info-card>
                 </v-flex>
-                <v-flex xs12 md4>
-                    <info-card title="Visits" number="300" color="#8e44ad" icon="fa fa-door-open"></info-card>
-                </v-flex>
             </v-layout>
         </v-container>
         <v-divider/>

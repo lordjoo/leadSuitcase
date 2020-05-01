@@ -2,14 +2,13 @@ module.exports.dashRoutes = [
     {
         path: "/lead/login",
         name: "Login",
-        meta: {
-            auth: true
-        }
+        component: () => import('../dashboard/login')
     },
     {
         path: "/lead/home",
         name: "dash.home",
         meta: {
+            auth:true,
             name:"Home",
             layout:"dash"
         },
@@ -19,6 +18,7 @@ module.exports.dashRoutes = [
         path: "/lead/events",
         name: "dash.events",
         meta: {
+            auth:true,
             name:"Events",
             layout:"dash",
         },
@@ -28,6 +28,7 @@ module.exports.dashRoutes = [
         path:'/lead/blog',
         name:"dash.blog",
         meta: {
+            auth:true,
             name:"Posts",
             layout:"dash",
         },
@@ -37,6 +38,7 @@ module.exports.dashRoutes = [
         path:'/lead/blog/appPost',
         name:"dash.blog.add",
         meta: {
+            auth:true,
             name:"Add Post",
             layout:"dash",
         },
@@ -46,6 +48,7 @@ module.exports.dashRoutes = [
         path:'/lead/blog/editPost/:id',
         name:"dash.blog.edit",
         meta: {
+            auth:true,
             name:"Edit Post",
             layout:"dash",
         },
@@ -55,6 +58,7 @@ module.exports.dashRoutes = [
         path:"/lead/notify",
         name:"dash.notify",
         meta: {
+            auth:true,
             name:"Notify",
             layout:"dash",
         },
@@ -64,6 +68,7 @@ module.exports.dashRoutes = [
         path:"/lead/mailer",
         name:"dash.mailer",
         meta: {
+            auth:true,
             name:"Mailer",
             layout:"dash",
         },
@@ -73,6 +78,7 @@ module.exports.dashRoutes = [
         path:"/lead/mailer/camp/:id",
         name:"dash.mailer.view",
         meta: {
+            auth:true,
             name:"Mailer",
             layout:"dash",
         },
@@ -82,6 +88,7 @@ module.exports.dashRoutes = [
         path:"/lead/mailer/auth",
         name:"dash.mailer.auth",
         meta: {
+            auth:true,
             name:"Mailer",
             layout:"dash",
         },

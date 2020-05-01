@@ -97,11 +97,6 @@
                         icon: "fa fa-paper-plane",
                         url: "dash.mailer"
                     },
-                    {
-                        title: "Site Configurations",
-                        icon: "fa fa-cogs ",
-                        url: "dash.settings"
-                    },
                 ],
             };
         }
