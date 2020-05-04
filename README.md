@@ -5,7 +5,7 @@ it also help the organisers in sending emails because it has a Mailer script to 
 
 ### it's fully rely on firebase so it's free to get started and deploy 
 
-***[Docs](https://leadsuitcase.ml/docs)***
+***[Docs](https://leadsuitcase.ml)***
 
 ## To Get Started 
 1. Clone the repo to your device 
