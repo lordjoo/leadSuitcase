@@ -12,10 +12,17 @@ export default new Vuex.Store({
     events:[],
     posts:[],
     upcoming:[],
+    lead:null,
     announcements:[],
   },
   mutations: {
     ...vuexfireMutations,
+    login:function (state, login) {
+      state.lead = login;
+    },
+    logout:function (state) {
+      state.lead = null
+    }
   },
   actions: {
     bindEvents: firestoreAction(context  => {

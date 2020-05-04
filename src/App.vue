@@ -30,10 +30,18 @@
 
     import HomeLayout from "./layouts/homeLayout";
     import DashLayout from "./layouts/dashLayout";
+    import firebase from 'firebase/app'
+    import 'firebase/auth'
 
     export default {
         name: 'App',
         mounted(){
+            firebase.auth().onAuthStateChanged(user => {
+                console.log(user);
+                if (user && user.email) {
+                    this.$store.commit('login',user);
+                }
+            });
             this.$store.dispatch('bindEvents')
             this.$store.dispatch('bindPosts')
             this.$store.dispatch('bindAnnouncements')

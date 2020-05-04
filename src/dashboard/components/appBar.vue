@@ -23,7 +23,7 @@
                 </v-list>
                 <v-divider></v-divider>
                 <v-list>
-                    <v-list-item>
+                    <v-list-item to="/">
                         <v-list-item-avatar>
                             <span class="fa fa-home"></span>
                         </v-list-item-avatar>
@@ -31,7 +31,7 @@
                             Home Page
                         </v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item target="_blank" href="https://leadsuitcase.ml">
                         <v-list-item-avatar>
                             <span class="fa fa-code"></span>
                         </v-list-item-avatar>
@@ -39,7 +39,7 @@
                             Documentation
                         </v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item target="_blank" href="https://leadsuitcase.ml">
                         <v-list-item-avatar>
                             <span class="fa fa-comment"></span>
                         </v-list-item-avatar>
@@ -53,13 +53,15 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn text @click="menu = false">Close</v-btn>
-                    <v-btn color="primary" text @click="menu = false">Log Out</v-btn>
+                    <v-btn color="primary" text @click="logout">Log Out</v-btn>
                 </v-card-actions>
             </v-card>
         </v-menu>
 </template>
 
 <script>
+    import firebase from 'firebase'
+    import 'firebase/auth'
     export default {
         name: "appBar",
         data(){
@@ -67,6 +69,14 @@
                 menu: false,
             };
         },
+        methods:{
+            logout:function () {
+                firebase.auth().signOut().then(()=>{
+                    this.$store.commit('logout');
+                    this.$router.push('/');
+                })
+            }
+        }
     }
 </script>
 

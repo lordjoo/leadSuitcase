@@ -266,6 +266,11 @@
                 this.loading = false;
             },
             moment: (date) => moment(date)
+        },
+        mounted() {
+            if (!this.$store.state.lead){
+                this.$router.push('/lead/login');
+            }
         }
     }
 </script>

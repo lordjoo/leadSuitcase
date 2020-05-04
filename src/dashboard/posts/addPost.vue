@@ -59,6 +59,11 @@
     import {convertToSlug} from '../../helpers'
     export default {
         name: "addPost",
+        mounted(){
+            if (!this.$store.state.lead){
+                this.$router.push('/lead/login');
+            }
+        },
         components: {Loading,tinymce},
         methods:{
             addPost: async function () {

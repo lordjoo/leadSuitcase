@@ -72,6 +72,9 @@
             };
         },
         async mounted() {
+            if (!this.$store.state.lead){
+                this.$store.$router.push('/lead/login');
+            }
             this.camp = await firebase.firestore().collection('mailer').doc(this.$route.params.id).get();
             this.camp = this.camp.data();
         },

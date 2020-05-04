@@ -35,6 +35,47 @@
                                 <span v-else-if="auth && auth.state === false">
                                     <i class="fa red--text fa-exclamation-triangle "></i>
                                     Not Working
+                                    <v-dialog v-model="solve" width="700">
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn outlined color="green" v-on="on">
+                                                Solve
+                                            </v-btn>
+                                        </template>
+                                        <v-card>
+                                            <v-card-title>
+                                                <h1>Mailer</h1>
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <h2 class="mt-3">
+                                                    Welcome To LeadSuitCase Mailer,
+                                                    You reached to this page because the mailer is not configured yet
+                                                    <br>
+                                                    we will walk you through some steps to get it ready now
+                                                </h2>
+                                                <v-divider class="mt-2"/>
+                                                <div class="steps mt-3">
+                                                <ol>
+                                                    <li>First Go to Google credentials console
+                                                        <a target="_blank" :href="'https://console.developers.google.com/apis/credentials?project='+fb_id">here</a></li>
+                                                    <li>
+                                                        Then Open This Video and follow the steps
+                                                    </li>
+                                                    <li>
+                                                        Then Come here and paste the client_json file contents
+                                                    </li>
+                                                </ol>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <v-textarea v-model="client_json" outlined></v-textarea>
+                                                    <v-btn @click="saveClient" dark color="green">Add Client JSON</v-btn>
+                                                </div>
+                                            </v-card-text>
+                                            <v-divider></v-divider>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
                                 </span>
                                 <span v-else>
                                   <v-progress-circular size="20" indeterminate color="blue"></v-progress-circular>checking
@@ -53,7 +94,7 @@
                                         You need to give access to {{ $config.name }} to send emails vie Gmail
                                     </span>
                                     <br>
-                                    <v-btn :href="auth.info.link" small color="red" outlined>
+                                    <v-btn v-if="auth.info.link" :href="auth.info.link" small color="red" outlined>
                                         Authorise {{$config.name}} Now
                                     </v-btn>
                                 </span>
@@ -65,7 +106,6 @@
                     </v-alert>
                 </v-flex>
             </v-layout>
-
             <v-layout v-if="dialog">
                 <v-flex md12 >
                     <v-card elevation="5" class="grey lighten-5">
@@ -119,8 +159,6 @@
                     </v-card>
                 </v-flex>
             </v-layout>
-
-
             <v-layout wrap row fill-height="true">
                 <v-flex md12>
                     <v-simple-table>
@@ -165,8 +203,6 @@
                 </v-flex>
                 <empty v-if="camps.length === 0" text="You didn't make any Mail campaigns  yet"></empty>
             </v-layout>
-
-
             <loading :loading="loading"/>
         </v-container>
     </section>
@@ -174,6 +210,7 @@
 
 <script>
     import firebase from 'firebase'
+    import {firebaseConfig} from '../../firebase-config'
     import 'firebase/functions'
     import 'firebase/firestore'
     import Loading from "../components/loading";
@@ -185,15 +222,22 @@
         name: "mailer",
         components: {Empty, Tinymce, Loading},
         async mounted() {
+            if (!this.$store.state.lead){
+                await this.$router.push('/lead/login');
+            }
             let getServiceState = firebase.functions().httpsCallable('mailerCheck');
             let Status = await getServiceState();
             Status = Status.data;
+            console.log(Status);
             this.check.client = Status[0]
             this.check.auth = Status[1]
         },
         data() {
             return {
+                fb_id:firebaseConfig.projectId,
                 camps:null,
+                solve:null,
+                client_json:'',
                 openStatus:false,
                 dialog: false,
                 valid: null,
@@ -212,6 +256,21 @@
             };
         },
         methods:{
+            reCheck:async function(){
+                let getServiceState = firebase.functions().httpsCallable('mailerCheck');
+                let Status = await getServiceState();
+                Status = Status.data;
+                this.check.client = Status[0]
+                this.check.auth = Status[1]
+            },
+            saveClient:async function(){
+                let addClientJSON = firebase.functions().httpsCallable('addClientJSON');
+                let status = await addClientJSON(this.client_json);
+                if (status){
+                    this.reCheck();
+                    this.solve = false;
+                }
+            },
             moment: (date)=> moment(date),
             createCampaign:function () {
                 this.loading = true;

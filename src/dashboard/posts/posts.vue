@@ -61,6 +61,11 @@
     export default {
         name: "posts",
         components: {Empty},
+        mounted(){
+            if (!this.$store.state.lead){
+                this.$router.push('/lead/login');
+            }
+        },
         methods:{
             deletePost: async function (id) {
                 await firebase.firestore().collection('posts').doc(id).delete();

@@ -1,12 +1,15 @@
 {
-  "name": "xdsc",
+  "name": "leadsuitcase",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "docs:dev": "vuepress dev dev_docs",
     "docs:build": "vuepress build dev_docs",
     "serve": "vue-cli-service serve",
+    "test": "vue-cli-service serve --open",
+    "setup": "(npm i --save && npm i -g firebase-tools) & (cd functions && npm i) & firebase login && node setup.js",
     "build": "vue-cli-service build",
+    "deploy": "vue-cli-service build && firebase deploy",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -42,6 +45,10 @@
     "vue-cli-plugin-vuetify": "~2.0.5",
     "vue-template-compiler": "^2.6.11",
     "vuepress": "^1.4.1",
+    "fastify": "^2.14.0",
+    "fastify-cors": "^3.0.3",
+    "fastify-static": "^2.7.0",
+    "opn": "^6.0.0",
     "vuetify-loader": "^1.3.0"
   },
   "eslintConfig": {

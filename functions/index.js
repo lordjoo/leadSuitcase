@@ -3,6 +3,7 @@ const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 const notify = require("./notify").notifyFromDB;
 const {Mailer,Auth} = require("./app/mailer");
+const fs = require("fs");
 
 exports.subscribe = functions.https.onCall(async data => {
    return await admin.messaging().subscribeToTopic(data,'news')
@@ -12,6 +13,11 @@ exports.notify = notify;
 
 exports.mailerCheck = functions.https.onCall(_=>{
    return new Mailer().checkConfig();
+});
+
+exports.addClientJSON = functions.https.onCall(json_data => {
+   fs.writeFileSync(__dirname+'/client_id.json',json_data);
+   return 'done';
 });
 
 exports.authoriseWithCode = functions.https.onCall(code =>{

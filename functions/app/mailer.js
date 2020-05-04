@@ -7,13 +7,15 @@ let mailerClass = {};
 // If modifying these scopes, delete token.json.
 const SCOPES = ["https://www.googleapis.com/auth/gmail.send"];
 const TOKEN_PATH = __dirname + "/../token.json";
-let client_json = JSON.parse(fs.readFileSync(__dirname + '/../client_id.json'));
+let client_json = function () {
+    return JSON.parse(fs.readFileSync(__dirname + '/../client_id.json'));
+};
 const mimemessage = require("mimemessage");
 
 
 const AuthClass = {
     oAuth2client: function () {
-        const {client_secret, client_id, redirect_uris} = client_json.web;
+        const {client_secret, client_id, redirect_uris} = client_json().web;
         const oAuth2Client = new google.auth.OAuth2(
             client_id,
             client_secret,
@@ -42,7 +44,7 @@ const AuthClass = {
         });
     },
     auth: function () {
-        const {client_secret, client_id, redirect_uris} = client_json.web;
+        const {client_secret, client_id, redirect_uris} = client_json().web;
         const oAuth2Client = new google.auth.OAuth2(
             client_id,
             client_secret,
@@ -92,7 +94,24 @@ class Mailer {
             statues.push({
                 name:"client",
                 state:true,
-            })
+            });
+            try {
+                fs.readFileSync(__dirname+'/../token.json')
+                statues.push({
+                    name:"client",
+                    state:true,
+                });
+            } catch (e) {
+                statues.push({
+                    name:"client",
+                    state:false,
+                    info:{
+                        msg: "Authentication is required, Please ReAuthenticate the app",
+                        error: "no_auth",
+                        link: AuthClass.getAuthLink()
+                    }
+                });
+            }
         } catch (e) {
             statues.push({
                 name:"client",
@@ -102,21 +121,12 @@ class Mailer {
                     error:"miss_configuration"
                 }
             });
-        }
-        try {
-            fs.readFileSync(__dirname+'/../token.json')
-            statues.push({
-                name:"client",
-                state:true,
-            });
-        } catch (e) {
             statues.push({
                 name:"client",
                 state:false,
                 info:{
-                    msg: "Authentication is required, Please ReAuthenticate the app",
-                    error: "no_auth",
-                    link: AuthClass.getAuthLink()
+                    msg: "Authentication is required, Please add the client JSON File First",
+                    error: "client_missing",
                 }
             });
         }

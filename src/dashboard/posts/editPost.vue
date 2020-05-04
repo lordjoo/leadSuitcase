@@ -89,6 +89,11 @@
                 }
             }
         },
+        mounted(){
+            if (!this.$store.state.lead){
+                this.$router.push('/lead/login');
+            }
+        },
         data: function () {
             return {
                 valid: null,

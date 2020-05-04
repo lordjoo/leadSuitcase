@@ -59,6 +59,11 @@
     import InfoCard from "./components/home/infoCard";
     export default {
         name: "index",
+        async mounted(){
+            if (! await this.$store.state.lead){
+                await this.$router.push('/lead/login');
+            }
+        },
         data(){
             return {
                 posts:this.$store.state.posts,

@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import firebase from 'firebase/app'
-import 'firebase/auth'
 import {dashRoutes} from './dashRoutes'
 import {frontRoutes} from './frontRoutes'
 
@@ -33,19 +31,5 @@ const router = new VueRouter({
     },
 });
 
-router.beforeEach((to, from, next) => {
-        const user = firebase.auth().currentUser;
-        const requiresAuth = to.matched.some(record => record.meta.auth);
-        if (requiresAuth) {
-            if (!user) {
-                next("/403");
-            } else {
-                next();
-            }
-        } else {
-            next()
-        }
-    }
-);
 
 export default router
