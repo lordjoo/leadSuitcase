@@ -21,24 +21,25 @@ app.get('/', (request, res) => {
 });
 app.post('/firebase/create',async (req,res) => {
   console.log(req.body);
-  await exec(`firebase projects:create ${req.body.p_id} -n "${req.body.p_name}"`,async (err,stdout,stderr) => {
+  exec(`firebase projects:create ${req.body.p_id} -n "${req.body.p_name}"`, async (err, stdout, stderr) => {
     if (err) {
       res.send({
-        status:"failed",
-        msg:"Unable to create your project, Please enter another Project ID "
+        status: "failed",
+        msg: "Unable to create your project, Please enter another Project ID "
       });
     } else {
       await exec(`firebase apps:create WEB Website --project ${req.body.p_id}`, async function (err,stdout,stderr) {
         console.log(stderr);
-        try {
-          execSync('firebase --out _service.js apps'+stdout.split('firebase apps')[1]);
-        } catch (e) {
+        try { 
+          execSync('firebase --out _service.js apps' + stdout.split('firebase apps')[1]);
+        }
+        catch (e) {
           console.log(e);
         }
       });
       res.send({
-        status:"done",
-        msg:"Completed Creating The applications"
+        status: "done",
+        msg: "Completed Creating The applications"
       });
     }
   });
@@ -77,7 +78,7 @@ const start = async () => {
   try {
     await app.listen(8009)
     console.log(`server listening on ${app.server.address().port}`)
-    opn('http://localhost:8009');
+    //opn('http://localhost:8009');
   } catch (err) {
     process.exit(1)
   }

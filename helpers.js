@@ -12,17 +12,20 @@ helpers.writeFirebaseConfigFile = function () {
         const firebaseConfig = ${after}
         module.exports.firebaseConfig = firebaseConfig;
     `;
-    fs.writeFile(__dirname+'/src/firebase-config.js',newFile,function () {
-        let projectID = require("./src/firebase-config").firebaseConfig.projectId ?? "";
-
-        let initProject = `
-        {
-          "projects": {
-            "default": "${projectID}"
-          }
-        }`;
-        fs.writeFileSync(__dirname+'/.firebaserc',initProject);
+    process.nextTick(()=>{
+        fs.writeFile(__dirname+'/src/firebase-config.js',newFile,function () {
+            let projectID = require("./src/firebase-config").firebaseConfig.projectId;            
+    
+            let initProject = `
+            {
+              "projects": {
+                "default": "${projectID}"
+              }
+            }`;
+            fs.writeFileSync(__dirname+'/.firebaserc',initProject);
+        });
     });
+
     let publicFile = `
         importScripts('https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js');
         importScripts('https://www.gstatic.com/firebasejs/7.12.0/firebase-messaging.js');
