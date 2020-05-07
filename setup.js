@@ -78,7 +78,7 @@ const start = async () => {
   try {
     await app.listen(8009)
     console.log(`server listening on ${app.server.address().port}`)
-    //opn('http://localhost:8009');
+    opn('http://localhost:8009');
   } catch (err) {
     process.exit(1)
   }
