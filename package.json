@@ -7,7 +7,7 @@
     "docs:build": "vuepress build dev_docs",
     "serve": "vue-cli-service serve",
     "test": "vue-cli-service serve --open",
-    "setup": "(npm i --save && npm i -g firebase-tools) & (cd functions && npm i) & firebase login && node setup.js",
+    "setup": "(npm i --save && npm i -g firebase-tools) & (cd functions && npm i) & ( firebase login && node setup.js )",
     "build": "vue-cli-service build",
     "deploy": "vue-cli-service build && firebase deploy",
     "lint": "vue-cli-service lint"
