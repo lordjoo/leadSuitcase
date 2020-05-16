@@ -4,7 +4,8 @@ const spawn = require("child_process").spawn;
 const execSync = require("child_process").execSync;
 const path = require('path')
 const opn = require("opn");
-const helpers = require("./helpers");
+const helpers = require("./helpers").helpers;
+const AuthClient = require("./helpers").auth;
 
 app.register(require('fastify-static'), {
   root: path.join(__dirname, '/setup/'),
@@ -47,9 +48,8 @@ app.post('/firebase/create',async (req,res) => {
 app.post('/project/config',async (req,res) => {
   let config = req.body.config;
   let file = `
-    import Vue from 'vue'
     const config = ${config};
-    Vue.prototype.$config = config; 
+    module.exports.config = config;
   `;
   try {
     fs.writeFileSync(__dirname+'/src/config.js',file);
@@ -60,15 +60,30 @@ app.post('/project/config',async (req,res) => {
   }
 });
 app.get('/getProjectID', function (req, res) {
-  let projectID = require("./src/firebase-config").firebaseConfig;
+  let projectID = require("./firebase-config").firebaseConfig;
   if (projectID)
     projectID = projectID.projectId;
   res.send(projectID);
 });
 app.get('/getAllConfig', function (req, res) {
-  let config = require("./src/firebase-config").firebaseConfig;
+  let config = require("./firebase-config").firebaseConfig;
   res.send(config);
 });
+app.post("/addClient",(req,res) => {
+  let client = req.body.client;
+  fs.writeFileSync(__dirname+'/functions/client_id.json',client);
+  res.send("done");
+});
+app.get("/getAuthURL",(req,res)=>{
+  let link = AuthClient.getAuthLink();
+  console.log(link);
+  res.send(link);
+});
+app.post("/addAuthToken",async (req, res)=>{
+  await AuthClient.getToken(req.body.code);
+  res.send({status:"done"});
+});
+
 
 
 

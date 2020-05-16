@@ -4,12 +4,13 @@ import router from './router'
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import './config'
+import appConfig  from './config'
 import './firebase-setup'
 import store from './store'
 import './registerServiceWorker'
 
-Vue.config.productionTip = false
+Vue.prototype.$config = appConfig.config;
+Vue.config.productionTip = false;
 
 new Vue({
   router,

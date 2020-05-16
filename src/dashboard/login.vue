@@ -61,6 +61,9 @@
     export default {
         name: "login",
         components: {Loading},
+        mounted() {
+
+        },
         data(){
             return {
                 email:null,

@@ -1,6 +1,7 @@
 const fs = require("fs");
-let helpers = {};
+const {google} = require("googleapis");
 
+let helpers = {};
 helpers.writeFirebaseConfigFile = function () {
     let file = fs.readFileSync(__dirname+'/_service.js','utf-8');
     let after = file.replace('// See https://firebase.google.com/docs/web/setup for more details.\n','').replace('','');
@@ -14,8 +15,8 @@ helpers.writeFirebaseConfigFile = function () {
     `;
     process.nextTick(()=>{
         fs.writeFile(__dirname+'/src/firebase-config.js',newFile,function () {
-            let projectID = require("./src/firebase-config").firebaseConfig.projectId;            
-    
+            let projectID = require("./firebase-config").firebaseConfig.projectId;
+
             let initProject = `
             {
               "projects": {
@@ -63,4 +64,56 @@ helpers.writeFirebaseConfigFile = function () {
     fs.unlinkSync(__dirname+'/_service.js');
 };
 
-module.exports = helpers;
+const SCOPES = ["https://www.googleapis.com/auth/gmail.send"];
+const TOKEN_PATH = __dirname + "/functions/token.json";
+let client_json = function () {
+    return JSON.parse(fs.readFileSync(__dirname + '/functions/client_id.json'));
+};
+
+let AuthClass = {
+    oAuth2client: function () {
+        const {client_secret, client_id, redirect_uris} = client_json().web;
+        const oAuth2Client = new google.auth.OAuth2(
+            client_id,
+            client_secret,
+            "http://localhost:8080/auth"
+        );
+        return oAuth2Client;
+    },
+    getToken: async function (code) {
+        const oAuth2Client = this.oAuth2client();
+        await oAuth2Client.getToken(code, (err, token) => {
+            if (err) {
+                console.log(err);
+                return {msg: "Error retrieving access token", error: err};
+            }
+            oAuth2Client.setCredentials(token);
+            // Store the token to disk for later program executions
+            fs.writeFileSync(TOKEN_PATH, JSON.stringify(token));
+            return new Promise(resolve => resolve({msg: 'done'}));
+        });
+    },
+    getAuthLink: function () {
+        const oAuth2Client = this.oAuth2client();
+        return oAuth2Client.generateAuthUrl({
+            access_type: "offline",
+            scope: SCOPES
+        });
+    },
+    auth: function () {
+        const {client_secret, client_id, redirect_uris} = client_json().web;
+        const oAuth2Client = new google.auth.OAuth2(
+            client_id,
+            client_secret,
+            redirect_uris[0]
+        );
+        let token = fs.readFileSync(TOKEN_PATH);
+        oAuth2Client.setCredentials(JSON.parse(token));
+        return oAuth2Client;
+    },
+};
+
+
+
+module.exports.helpers = helpers;
+module.exports.auth = AuthClass;

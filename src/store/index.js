@@ -3,11 +3,14 @@ import Vuex from 'vuex'
 import {firestoreAction, vuexfireMutations} from 'vuexfire'
 import firebase from "firebase/app";
 import 'firebase/firestore'
+import createPersistedState from "vuex-persistedstate";
+
 const db = firebase.firestore();
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     events:[],
     posts:[],
