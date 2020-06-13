@@ -19,9 +19,10 @@ yarn-error.log*
 *.sw?
 .firebaserc
 .firebase
-
+src/firebase-config.js
 public/firebase-messaging-sw.js
 functions/client_id.json
 functions/token.json
 firebase-debug.log
 src/config.js
+/dist/
