@@ -98,4 +98,7 @@ app.get("*",(req,res)=>{
     res.sendFile('setup/index.html');
 });
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+app.listen(port, () => {
+    opn(`http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`);
+});
