@@ -1,4 +1,4 @@
-<template>
+    <template>
     <v-container class="pa-0">
         <v-layout wrap align-center="true" justify-center="true" row fill-height="true" >
             <v-flex xs12 md3 lg3 class="pa-2">

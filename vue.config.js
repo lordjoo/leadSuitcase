@@ -1,7 +1,9 @@
 const firebaseConfig = require('./src/firebase-config').firebaseConfig;
 const appConfig = require("./src/config").config;
+// const path = require("path");
 
 module.exports = {
+  // outputDir: path.resolve(__dirname, "front"),
   "transpileDependencies": [
     "vuetify"
   ],

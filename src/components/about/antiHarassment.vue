@@ -3,7 +3,8 @@
         <v-layout wrap align-start="true" justify-start="true" row fill-height="true" class="my-0" >
 
             <v-flex xs12 md8 lg8 class="pa-2 my-0">
-                <p class="google-font" style="font-size:180%;color:#0277bd">Anti-Harassment Policy</p>
+                <p class="google-font"
+                   :style="{fontSize:'180%',color:$config.style.color}">Anti-Harassment Policy</p>
 
                 <p class="google-font" style="font-size:110%">
                     <b style="font-size:120%;color: #2E2E2E;">Why do we have an official Anti-Harassment policy for {{$config.name}} events?</b>

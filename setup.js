@@ -37,7 +37,7 @@ app.post('/firebase/create', async (req,res) => {
 app.post('/firebase/init',async (req, res) => {
     console.log(req);
     try {
-        let c1 = execSync(`firebase apps:create WEB Website --project ${req.body.p_id} `);
+        let c1 = execSync(`firebase apps:create WEB LeadSuitCase --project ${req.body.p_id} `);
         await    exec('firebase --out _service.js apps' + c1.toString().split('firebase apps')[1]);
         res.send({'status':"done"});
     } catch (e) {
@@ -62,7 +62,7 @@ module.exports.config = config;`;
 
 app.get('/getProjectID', (req, res) => {
     try {
-        let projectID = require("./firebase-config").firebaseConfig;
+        let projectID = require("./src/firebase-config").firebaseConfig;
         if (projectID)
             projectID = projectID.projectId;
         res.send(projectID);
@@ -72,7 +72,7 @@ app.get('/getProjectID', (req, res) => {
 });
 app.get('/getAllConfig', function (req, res) {
     try {
-        let config = require("./firebase-config").firebaseConfig;
+        let config = require("./src/firebase-config").firebaseConfig;
         res.send(config);
     } catch (e) {
         res.send({"status":"failed"});

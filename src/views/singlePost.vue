@@ -1,7 +1,7 @@
 <template>
     <section class="blog-page">
 
-        <v-section style="background-color: #F9F9F9">
+        <v-section :style="{backgroundColor: $vuetify.theme.dark ? '#000 ':'#F9F9F9'}"   >
             <v-card>
                 <v-card-title>
                     <p class="google-fonts">{{ post.title }}</p>

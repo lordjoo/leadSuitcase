@@ -4,6 +4,7 @@ import router from './router'
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
+import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
 import appConfig  from './config'
 import './firebase-setup'
 import store from './store'

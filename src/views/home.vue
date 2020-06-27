@@ -8,7 +8,8 @@
             </v-layout>
         </v-container>
 
-        <v-container fluid style="background-color:#F9F9F9" >
+        <v-container fluid
+                     :style="{backgroundColor: $vuetify.theme.dark ? '#212121':'#F9F9F9'}" >
             <v-layout wrap align-center="true" justify-center="true" row fill-height="true">
                 <v-flex xs10 md10 class="">
                     <whatWeDo />
@@ -32,7 +33,7 @@
             </v-layout>
         </v-container>
 
-        <v-container fluid style="background-color:#F9F9F9">
+        <v-container fluid :style="{backgroundColor: $vuetify.theme.dark ? '#212121':'#F9F9F9'}" >
             <v-layout wrap align-center="true" justify-center="true" row fill-height="true">
                 <v-flex xs10 md10 class="">
                     <solution-challenge></solution-challenge>

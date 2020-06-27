@@ -26,8 +26,8 @@
                 </v-img>
             </v-flex>
             <v-flex xs12 sm7 md5 lg7 xl8 class="">
-                <p class="google-font mb-1" style="font-weight: 300;color: #616161;font-size:300%"><b>
-                    Build good things <span style="color: #1a73e8;">together</span>.</b>
+                <p class="google-font mb-1" :style="{fontWeight: '300',color:$vuetify.theme.dark?'white':'#616161',fontSize:'300%'}"><b>
+                    Build good things <span :style="{color:$config.style.color}">together</span>.</b>
                 </p>
                 <p class="google-font mt-0" style="font-size:180%">
                     {{ $config.header.sub1 }} </p>

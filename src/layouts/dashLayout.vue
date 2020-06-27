@@ -11,6 +11,9 @@
         <v-navigation-drawer v-model="drawer" app>
             <v-list dense>
                 <v-list-item class="mb-4">
+                    <v-list-item-avatar>
+                        <v-img src="@/assets/suitcase.svg" />
+                    </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title class="title">
                             Lead Suitcase
@@ -62,15 +65,26 @@
     export default {
         name: "dashLayout",
         components: {AppBar},
+        mounted(){
+            window.addEventListener('resize',()=>{
+                if (window.innerWidth <= 786){
+                    this.drawer = false;
+                }
+            });
+            if (window.innerWidth <= 786){
+                this.drawer = false;
+            } else  {
+                this.drawer = true;
+            }
+        },
         computed:{
             title:function () {
                 return this.$route.meta.name ?? null;
-
             }
         },
         data(){
             return {
-                drawer: true,
+                drawer: null,
                 items: [
                     {
                         title: "Dashboard",

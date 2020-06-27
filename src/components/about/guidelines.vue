@@ -3,13 +3,16 @@
         <v-layout wrap align-start="true" justify-start="true" row fill-height="true" class="my-0" >
 
             <v-flex xs12 md8 lg8 class="pa-2 my-0">
-                <p class="google-font" style="font-size:180%;color:#0277bd">Community Guidelines</p>
+                <p class="google-font"
+                   :style="{fontSize:'180%',color:$config.style.color}"
+                >Community Guidelines</p>
                 <v-expansion-panels multiple>
                     <v-expansion-panel v-for="(item,i) in communityGuideline" :key="i">
                         <v-expansion-panel-header class="google-font text--black" style="font-size:120%">
                             {{item.name}}
                         </v-expansion-panel-header>
-                        <v-expansion-panel-content class="google-font grey lighten-3" style="font-size:110%">
+                        <v-expansion-panel-content
+                                :class="$vuetify.theme.dark?'google-font grey darken-3':'google-font grey lighten-3'" style="font-size:110%">
                             <p class="pt-3 mb-0 ">
                                 {{item.des}}
                             </p>

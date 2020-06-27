@@ -7,10 +7,13 @@
                         <span class="fa fa-envelope-open-text mr-2"></span>View Mailer Campaign</p>
                 </v-flex>
             </v-layout>
-            <v-layout wrap justify-center="" row>
+            <v-layout v-if="camp !== null" wrap justify-center="" row>
                 <v-flex md11 xs11>
                     <p style="font-size: 110%" class="google-font mb-1">Campaign Title: {{ camp.name }}</p>
                     <p style="font-size: 110%" class="google-font mb-1 mt-0">Email Subject: {{ camp.email_subject }}</p>
+                    <p style="font-size: 110%" class="google-font mb-1 mt-0">Total Recipients : {{ camp.to.length }}</p>
+                    <p style="font-size: 110%" class="google-font mb-1 mt-0">Emails Sent Successfully: {{ success }}</p>
+                    <p style="font-size: 110%" class="google-font mb-1 mt-0">Total Failed Emails: {{ camp.to.length-success }}</p>
                     <p style="font-size: 110%" class="google-font m-1 mt-0">Status: {{ camp.status }}</p>
                     <v-layout wrap row fill-height="true">
                         <v-flex md12>
@@ -63,7 +66,7 @@
         name: "campaign-view",
         data() {
             return {
-                camp: null,
+                camp: [],
             };
         },
         firestore: function () {
@@ -78,6 +81,18 @@
             this.camp = await firebase.firestore().collection('mailer').doc(this.$route.params.id).get();
             this.camp = this.camp.data();
         },
+        computed:{
+            success:function () {
+                if (this.camp.log !== null && this.camp.log !== undefined){
+                    let count = this.camp.log.filter(el=>{
+                        return el.status === "Successful";
+                    });
+                    return count.length;
+                } else {
+                    return "null";
+                }
+            }
+        }
     }
 </script>
 

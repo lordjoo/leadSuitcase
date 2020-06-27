@@ -4,16 +4,23 @@
             <v-flex xl12 md12 sm12 class="pa-2">
                 <p class="google-font text-center" style="font-size: 200%">Recent Events</p>
                 <p style="font-size: 100%" class="google-font text-center m-0 p-0">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cum, deserunt dolore ex explicabo fugit iusto laborum mollitia numquam quas sit, temporibus voluptas? Laborum.
+
                 </p>
             </v-flex>
         </v-layout>
-        <v-layout row fill-height="true" >
+        <v-layout v-if="upComing" row fill-height="true" >
             <v-flex v-for="event in upComing" :key="event.name" sm12 md4 lg4>
                 <event-card :event="event"></event-card>
             </v-flex>
             <v-flex v-for="event in pastEvents" :key="event.name" sm12 md4 lg4>
                 <event-card :event="event"></event-card>
+            </v-flex>
+        </v-layout>
+        <v-layout v-else row fill-height="">
+            <v-flex>
+                <p style="font-size: 120%" class="google-font text-center m-0 p-0">
+                    Coming Soon <i class="mdi mdi-rocket"></i>
+                </p>
             </v-flex>
         </v-layout>
     </v-container>

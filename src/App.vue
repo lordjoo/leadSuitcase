@@ -1,5 +1,5 @@
 <template>
-    <v-app :dark=true>
+    <v-app dark>
         <home-layout v-if="this.$route.meta.layout ==='home'"></home-layout>
         <dash-layout v-else-if="this.$route.meta.layout ==='dash'"></dash-layout>
         <v-slide-y-reverse-transition v-else>

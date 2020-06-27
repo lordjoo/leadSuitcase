@@ -29,7 +29,7 @@ exports.authoriseWithCode = functions.https.onCall(code =>{
    }
 });
 
-exports.mailerRuner = functions.firestore.document('mailer/{id}').onCreate(async snap => {
+exports.mailerRuner = functions.runWith({memory:"2GB",timeoutSeconds:540}).firestore.document('mailer/{id}').onCreate(async snap => {
    let camp = snap.data();
    let log = [];
    for (const mail of camp.to) {
@@ -45,7 +45,7 @@ exports.mailerRuner = functions.firestore.document('mailer/{id}').onCreate(async
          });
          console.log(err)
       });
-      await Mailer.sleep(5000);
+      await Mailer.sleep(500);
    }
    await admin.firestore().collection('mailer').doc(snap.id).update({
       "to":log,

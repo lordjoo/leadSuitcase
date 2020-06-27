@@ -17,15 +17,15 @@
                 </v-container>
             </v-section>
 
-            <v-section style="background-color: #F9F9F9">
+            <v-section :style="{backgroundColor: $vuetify.theme.dark ? '#212121':'#F9F9F9'}" >
                 <guidelines></guidelines>
             </v-section>
 
-            <v-section style="background-color: #F9F9F9">
+            <v-section :style="{backgroundColor: $vuetify.theme.dark ? '#212121':'#F9F9F9'}" >
                 <code-of-conduct />
             </v-section>
 
-            <v-section style="background-color: #F9F9F9">
+            <v-section :style="{backgroundColor: $vuetify.theme.dark ? '#212121':'#F9F9F9'}" >
                 <anti-Harassment />
             </v-section>
 
