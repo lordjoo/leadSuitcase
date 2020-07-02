@@ -3,14 +3,12 @@
         <v-layout align-center="true" justify-center="true" row fill-height="true" >
             <v-flex xl12 md12 sm12 class="pa-2">
                 <p class="google-font text-center" style="font-size: 200%">Recent Events</p>
-                <p style="font-size: 100%" class="google-font text-center m-0 p-0">
-
-                </p>
+                <p style="font-size: 100%" class="google-font text-center m-0 p-0"></p>
             </v-flex>
         </v-layout>
-        <v-layout v-if="upComing" row fill-height="true" >
+        <v-layout v-if="upComing || pastEvents" row fill-height="true" >
             <v-flex v-for="event in upComing" :key="event.name" sm12 md4 lg4>
-                <event-card :event="event"></event-card>
+                <event-card :upComing="true" :event="event"></event-card>
             </v-flex>
             <v-flex v-for="event in pastEvents" :key="event.name" sm12 md4 lg4>
                 <event-card :event="event"></event-card>
@@ -41,7 +39,7 @@
                 };
                 let events = this.$store.state.events;
                 let coming = events.filter(check);
-                return (coming.length > 0) ? coming.slice(0,2) : false;  
+                return (coming.length > 0) ? coming.slice(-3) : false;
             },
             upComing: function () {
                 let check = function (event) {

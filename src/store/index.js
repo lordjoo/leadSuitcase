@@ -17,6 +17,7 @@ export default new Vuex.Store({
     upcoming:[],
     lead:null,
     announcements:[],
+    team:[],
   },
   mutations: {
     ...vuexfireMutations,
@@ -29,7 +30,7 @@ export default new Vuex.Store({
   },
   actions: {
     bindEvents: firestoreAction(context  => {
-      return context.bindFirestoreRef("events",db.collection('events'));
+      return context.bindFirestoreRef("events",db.collection('events').orderBy("date"));
     }),
     bindUpcoming: firestoreAction(context  => {
       return context.bindFirestoreRef("upcoming",db.collection('events').where('date','>',new Date()));
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     }),
     bindAnnouncements: firestoreAction(context  => {
       return context.bindFirestoreRef("announcements",db.collection('posts').where("isAnnouncement",'==',true));
+    }),
+    bindTeam: firestoreAction(context  => {
+      return context.bindFirestoreRef("team",db.collection('team'));
     }),
   },
   modules: {

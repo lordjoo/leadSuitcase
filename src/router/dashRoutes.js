@@ -25,6 +25,16 @@ module.exports.dashRoutes = [
         component: () => import('../dashboard/events')
     },
     {
+        path: "/lead/team",
+        name: "dash.team",
+        meta: {
+            auth:true,
+            name:"Team Members",
+            layout:"dash",
+        },
+        component: () => import('../dashboard/team')
+    },
+    {
         path:'/lead/blog',
         name:"dash.blog",
         meta: {

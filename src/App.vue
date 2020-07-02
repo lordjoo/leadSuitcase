@@ -34,7 +34,9 @@
     export default {
         name: 'App',
         mounted(){
+            this.$vuetify.theme.dark = localStorage.getItem('dark');
             this.$store.dispatch('bindEvents')
+            this.$store.dispatch('bindTeam')
             this.$store.dispatch('bindPosts')
             this.$store.dispatch('bindAnnouncements')
         },

@@ -66,11 +66,7 @@
         name: "dashLayout",
         components: {AppBar},
         mounted(){
-            window.addEventListener('resize',()=>{
-                if (window.innerWidth <= 786){
-                    this.drawer = false;
-                }
-            });
+            
             if (window.innerWidth <= 786){
                 this.drawer = false;
             } else  {
@@ -95,6 +91,11 @@
                         title: "Evens",
                         icon: "fa fa-calendar-week",
                         url: "dash.events"
+                    },
+                    {
+                        title: "Team",
+                        icon: "fa fa-users",
+                        url: "dash.team"
                     },
                     {
                         title: "Blog",

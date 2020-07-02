@@ -11,8 +11,9 @@
                 <v-img
                         width="550px"
                         height="350px"
-                        src="../../assets/img/banner.png"
-                        lazy-src="../../assets/img/banner.png"
+                        contain
+                        src="../../assets/img/banner.svg"
+                        lazy-src="../../assets/img/banner.svg"
                 >
                     <v-layout
                             slot="placeholder"
@@ -37,7 +38,7 @@
 
                 </p>
 
-                <v-btn @click="not" :to="$config.links.joinUsForm" class="ma-0 google-font elevation-1" :color="$config.style.color"
+                <v-btn @click="not" :href="$config.links.joinUsForm" class="ma-0 google-font elevation-1" :color="$config.style.color"
                        style="text-transform: capitalize;border-radius:5px;color:white">
                     Become a Member</v-btn>
                 &nbsp;

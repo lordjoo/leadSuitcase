@@ -19,7 +19,10 @@ module.exports = {
     name:appConfig.name,
     manifestOptions:{
       name:appConfig.name,
-      themeColor: '#ffffff',
+      theme_color: appConfig.style.color,
+      background_color:"#ffffff",
+      manifest_version:"8",
+      version:"8",
       msTileColor: appConfig.style.color,
       appleMobileWebAppCapable: 'yes',
       appleMobileWebAppStatusBarStyle: 'black',

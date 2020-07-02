@@ -21,7 +21,7 @@
                 <v-layout v-if="posts" wrap row >
                     <v-flex md12 xs12 sm12>
                         <p :style="{fontSize:'200%',color:$config.style.color}" class="google-font">
-                            Announcements
+                            Blog
                         </p>
                     </v-flex>
                     <v-flex v-for="post in posts" :key="post.name" md4 xs12>

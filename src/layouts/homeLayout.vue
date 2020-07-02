@@ -35,7 +35,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-btn @click="dialog = true" v-if="notificationOff" fixed color="white" fab bottom right class="v-btn--example">
+        <v-btn @click="dialog = true" v-if="notificationOff" fixed color="white" fab right class="v-btn--example" style="bottom: 60px">
             <img alt="" style="width: 40px" src="@/assets/img/badge.png" />
         </v-btn>
     </main>

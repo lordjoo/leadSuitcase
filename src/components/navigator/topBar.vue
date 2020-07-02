@@ -21,6 +21,15 @@
                 <v-btn class="no-shadow" to="/blog" :color="$vuetify.theme.dark?'black':'#fff'"   >
                     <span class="fa fa-blog mr-1"></span> Blog
                 </v-btn>
+                <v-btn class="no-shadow" to="/team" :color="$vuetify.theme.dark?'black':'#fff'"   >
+                    <span class="fa fa-users mr-1"></span> Team
+                </v-btn>
+                <v-btn text @click="darkMode">
+                    <span style="font-size: 170%" :class="$vuetify.theme.dark?'mdi mdi-weather-sunny mr-1':'mdi mdi-weather-night mr-1'"></span>
+                </v-btn>
+
+            </div>
+            <div class="hidden-md-and-up">
                 <v-btn text @click="darkMode">
                     <span style="font-size: 170%" :class="$vuetify.theme.dark?'mdi mdi-weather-sunny mr-1':'mdi mdi-weather-night mr-1'"></span>
                 </v-btn>
@@ -36,6 +45,7 @@
         methods:{
             darkMode:function () {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+                localStorage.setItem('dark', !this.$vuetify.theme.dark);
             }
         }
     }

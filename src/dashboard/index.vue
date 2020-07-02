@@ -45,7 +45,7 @@
                 <v-flex md12 class="mt-4 text-center">
                     <v-img class="ma-auto" width="100" src="@/assets/img/ufo.png"></v-img>
                     <p style="font-size: 140%" class="google-font mt-2">No Upcoming Events </p>
-                    <v-btn text class="blue white--text">Add Event</v-btn>
+                    <v-btn :to='{name:"dash.events"}' text class="blue white--text">Add Event</v-btn>
                 </v-flex>
             </v-layout>
         </v-container>

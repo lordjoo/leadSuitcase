@@ -10,7 +10,7 @@ const opn = require("opn");
 const helpers = require("./helpers").helpers;
 const AuthClient = require("./helpers").auth;
 const fs = require("fs");
-app.use(express.static('setup'));
+app.use(express.static(__dirname+'/setup'));
 app.use(bodyParser.json()); // <--- Here
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
@@ -41,6 +41,7 @@ app.post('/firebase/init',async (req, res) => {
         await    exec('firebase --out _service.js apps' + c1.toString().split('firebase apps')[1]);
         res.send({'status':"done"});
     } catch (e) {
+        console.log(e)
         return res.send({'status':"failed","msg":`Failed To Initialise ${req.body.p_id} Project `});
     }
 });
@@ -86,7 +87,6 @@ app.post("/addClient",(req,res) => {
 });
 app.get("/getAuthURL",(req,res)=>{
     let link = AuthClient.getAuthLink();
-    console.log(link);
     res.send(link);
 });
 app.post("/addAuthToken",async (req, res)=>{
@@ -95,10 +95,10 @@ app.post("/addAuthToken",async (req, res)=>{
 });
 
 app.get("*",(req,res)=>{
-    res.sendFile('setup/index.html');
+    res.sendFile(__dirname+'/setup/index.html');
 });
 
 app.listen(port, () => {
     opn(`http://localhost:${port}`);
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Setup Is Running http://localhost:${port}`);
 });

@@ -16,9 +16,9 @@
             <span>Blog</span>
             <v-icon>list_alt</v-icon>
         </v-btn>
-        <v-btn to="/about" :color="$vuetify.theme.dark?'grey darken-4':'#fff'"  >
-            <span>About</span>
-            <v-icon>error_outline
+        <v-btn to="/team" :color="$vuetify.theme.dark?'grey darken-4':'#fff'"  >
+            <span>Team</span>
+            <v-icon>group
             </v-icon>
         </v-btn>
     </v-bottom-navigation>
