@@ -45,7 +45,7 @@
                                        fab small elevation="0" style="background-color: #3b5998"
                                        target="_blank"
                                        slot="activator">
-                                    <span class="fab fa-facebook"></span>
+                                    <span class="fab fa-facebook white--text"></span>
                                 </v-btn>
                                 <v-btn :href="$config.social.twitter"
                                        v-if="$config.social.twitter"
@@ -53,14 +53,14 @@
                                        class="blue ml-2"
                                        target="_blank"
                                        slot="activator">
-                                    <span class="fab fa-twitter"></span>
+                                    <span class="fab fa-twitter white--text"></span>
                                 </v-btn>
                                 <v-btn v-if="$config.social.yt" :href="$config.social.yt"
                                        fab small elevation="0"
                                        class="red ml-2"
                                        target="_blank"
                                        slot="activator">
-                                    <span class="fab fa-youtube"></span>
+                                    <span class="fab fa-youtube white--text"></span>
                                 </v-btn>
                             </v-flex>
                         </v-layout>
